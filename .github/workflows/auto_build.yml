@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - dev
+  create:
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -58,7 +60,7 @@ jobs:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
 
-      - name: Upload Released APK armv7
+      - name: Upload Released APK
         uses: actions/upload-artifact@v2
         with:
           name: portalHook
