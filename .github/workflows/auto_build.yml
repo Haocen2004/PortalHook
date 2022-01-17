@@ -50,7 +50,7 @@ jobs:
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
 
       - name: Build APK with Gradle (MAIN)
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref != 'refs/heads/dev' }}
         run: |
           chmod +x gradlew
           ./gradlew clean
