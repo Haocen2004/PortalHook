@@ -1,6 +1,10 @@
 # Portal Hook
-一个简易的小程序利用xposed来修改传送门使其能够打开其他浏览器  
-需要root权限
+一个简易的小程序利用xposed来修改MIUI应用使其能够打开其他浏览器  
+## 支持应用
+- 传送门 2.5.17
+- 小爱同学 5.116.6-202112171621-30
+
+**重启APP时需要root权限**
 
 ## Open Source
 Sollyu 编写的 Proguard-log.pro  
