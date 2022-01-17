@@ -63,13 +63,13 @@ jobs:
       - name: Upload Released APK
         uses: actions/upload-artifact@v2
         with:
-          name: portalHook
+          name: portalHookAPK
           path: app/build/outputs/apk/release/app-release.apk
 
       - name: Upload Released Mapping
       uses: actions/upload-artifact@v2
       with:
-        name: portalHook
+        name: portalHookMapping
         path: app/build/outputs/mapping/release/mapping.txt
 
       - name: Upload APKs to Release Page
