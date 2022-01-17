@@ -5,6 +5,15 @@ plugins {
 android {
     compileSdk 32
 
+    signingConfigs {
+        releaseSign {
+            storeFile file(System.getenv("KEYSTORE") ?:"keystore.jks")
+            storePassword System.getenv("KEYSTORE_PASSWORD")
+            keyAlias System.getenv("KEY_ALIAS")
+            keyPassword System.getenv("KEY_PASSWORD")
+        }
+    }
+
     defaultConfig {
         applicationId "xyz.hellocraft.portalhook"
         minSdk 21
