@@ -43,6 +43,7 @@ public class PortalHook {
                 } catch (Exception e) {
                     XposedBridge.log(e);
                 }
+                return null;
             }
         });
     }
