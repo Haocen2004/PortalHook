@@ -1,5 +1,6 @@
 package xyz.hellocraft.portalhook.hook;
 
+import android.app.SearchManager;
 import android.content.Intent;
 import android.content.Context;
 import android.net.Uri;
@@ -31,14 +32,11 @@ public class PortalHook {
         XposedHelpers.findAndHookMethod(clazz, "openGlobalSearch", Context.class, String.class, String.class, new XC_MethodReplacement() {
             @Override
             protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
-                XposedBridge.log("Hook到全局搜索打开,关键词："+param.args[1].toString()+"，来源："+param.args[2].toString());
+                XposedBridge.log("Hook到全局搜索打开，关键词："+param.args[1].toString()+"，来源："+param.args[2].toString());
                 try {
-                    String targetUrl = "https://www.baidu.com/s?word=" + param.args[1].toString();
-                    // TODO: 自定义搜索引擎
                     Intent intent = new Intent();
-                    intent.setAction("android.intent.action.VIEW");
-                    Uri uri = Uri.parse(targetUrl);
-                    intent.setData(uri);
+                    intent.setAction(Intent.ACTION_WEB_SEARCH);
+                    intent.putExtra(SearchManager.QUERY, param.args[1].toString());
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     ((Context) param.args[0]).startActivity(intent);
                 } catch (Exception e) {
