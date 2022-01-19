@@ -5,7 +5,6 @@ import android.content.Context;
 import android.net.Uri;
 
 import de.robv.android.xposed.XC_MethodReplacement;
-import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
@@ -29,14 +28,21 @@ public class PortalHook {
             }
         });
 
-        XposedHelpers.findAndHookMethod(clazz, "openGlobalSearch", Context.class, String.class, String.class, new XC_MethodHook() {
+        XposedHelpers.findAndHookMethod(clazz, "openGlobalSearch", Context.class, String.class, String.class, new XC_MethodReplacement() {
             @Override
-            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                super.beforeHookedMethod(param);
-                XposedBridge.log("0)Hook到搜索打开");
-                XposedBridge.log(param.args[0].toString());
-                XposedBridge.log(param.args[1].toString());
-                XposedBridge.log(param.args[2].toString());
+            protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+                XposedBridge.log("Hook到全局搜索打开,关键词："+param.args[1].toString()+"来源："+param.args[2].toString());
+                try {
+                    String targetUrl = "https://www.baidu.com/s?word=" + param[1].toString();
+                    // TODO: 自定义搜索引擎
+                    Intent intent = new Intent();
+                    intent.setAction("android.intent.action.VIEW");
+                    Uri uri = Uri.parse(targetUrl);
+                    intent.setData(uri);
+                    ((Context) param.args[0]).startActivity(intent);
+                } catch (Exception e) {
+                    XposedBridge.log(e);
+                }
             }
         });
     }
