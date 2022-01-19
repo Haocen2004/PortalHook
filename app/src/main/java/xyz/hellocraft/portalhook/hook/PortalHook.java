@@ -29,15 +29,15 @@ public class PortalHook {
             }
         });
 
-        XposedHelpers.findAndHookMethod(clazz, "openGlobalSearch", Context.class, String.class String.class, new XC_MethodHook() {
-                @Override
-                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                    super.beforeHookedMethod(param);
-                    XposedBridge.log("0)Hook到搜索打开");
-                    for(Object obj:param.args) {
-                        XposedBridge.log(obj.toString());
-                    }
-                }
-            });
+        XposedHelpers.findAndHookMethod(clazz, "openGlobalSearch", Context.class, String.class, String.class, new XC_MethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                super.beforeHookedMethod(param);
+                XposedBridge.log("0)Hook到搜索打开");
+                XposedBridge.log(param.args[0]);
+                XposedBridge.log(param.args[1]);
+                XposedBridge.log(param.args[2]);
+            }
+        });
     }
 }
