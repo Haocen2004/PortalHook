@@ -1,9 +1,11 @@
 package xyz.hellocraft.portalhook.hook;
 
 import android.content.Intent;
+import android.content.Context;
 import android.net.Uri;
 
 import de.robv.android.xposed.XC_MethodReplacement;
+import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
@@ -26,5 +28,16 @@ public class PortalHook {
                 return intent;
             }
         });
+
+        XposedHelpers.findAndHookMethod(clazz, "openGlobalSearch", Context.class, String.class String.class, new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    super.beforeHookedMethod(param);
+                    XposedBridge.log("0)Hook到搜索打开");
+                    for(Object obj:param.args) {
+                        XposedBridge.log(obj.toString());
+                    }
+                }
+            });
     }
 }
