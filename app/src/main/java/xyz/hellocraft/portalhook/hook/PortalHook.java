@@ -33,7 +33,7 @@ public class PortalHook {
             protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
                 XposedBridge.log("Hook到全局搜索打开,关键词："+param.args[1].toString()+"来源："+param.args[2].toString());
                 try {
-                    String targetUrl = "https://www.baidu.com/s?word=" + param[1].toString();
+                    String targetUrl = "https://www.baidu.com/s?word=" + param.args[1].toString();
                     // TODO: 自定义搜索引擎
                     Intent intent = new Intent();
                     intent.setAction("android.intent.action.VIEW");
