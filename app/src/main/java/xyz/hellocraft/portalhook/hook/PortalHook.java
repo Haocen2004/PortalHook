@@ -34,9 +34,9 @@ public class PortalHook {
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 super.beforeHookedMethod(param);
                 XposedBridge.log("0)Hook到搜索打开");
-                XposedBridge.log(param.args[0]);
-                XposedBridge.log(param.args[1]);
-                XposedBridge.log(param.args[2]);
+                XposedBridge.log(param.args[0].toString());
+                XposedBridge.log(param.args[1].toString());
+                XposedBridge.log(param.args[2].toString());
             }
         });
     }
