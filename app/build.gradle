@@ -18,9 +18,9 @@ android {
         applicationId "xyz.hellocraft.portalhook"
         minSdk 21
         targetSdk 32
-        versionCode 6
+        versionCode 7
 //        versionCode Integer.parseInt(System.currentTimeMillis().toString()[7..12])
-        versionName "1.1.3"
+        versionName "1.1.4"
         signingConfig signingConfigs.releaseSign
     }
 

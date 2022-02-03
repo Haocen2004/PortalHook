@@ -1,23 +1,29 @@
 package xyz.hellocraft.portalhook;
 
-import androidx.appcompat.app.AppCompatActivity;
+import static xyz.hellocraft.portalhook.BuildConfig.APPLICATION_ID;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import xyz.hellocraft.portalhook.databinding.ActivityMainBinding;
 import xyz.hellocraft.portalhook.utils.RootKit;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
+    private SharedPreferences app_pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        xyz.hellocraft.portalhook.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 //        haveRoot = RootKit.haveRoot();
         binding.btnPortal.setOnClickListener(view -> {
@@ -41,5 +47,14 @@ public class MainActivity extends AppCompatActivity {
             intent.setData(uri);
             startActivity(intent);
         });
+        app_pref = getSharedPreferences("settings", 0);
+        binding.iconSwitch.setChecked(app_pref.getBoolean("hideLauncher",false));
+        binding.iconSwitch.setOnCheckedChangeListener((compoundButton, b) -> switchLauncherIcon(b));
+    }
+
+    private void switchLauncherIcon(boolean b){
+        PackageManager packageManager = getPackageManager();
+        packageManager.setComponentEnabledSetting(new ComponentName(this, APPLICATION_ID+".launcher"),b ? PackageManager.COMPONENT_ENABLED_STATE_DISABLED : PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+        app_pref.edit().putBoolean("hideLauncher",b).apply();
     }
 }
