@@ -3,5 +3,6 @@
     <string-array name="xposed_scope">
         <item>com.miui.contentextension</item>
         <item>com.miui.voiceassist</item>
+        <item>android</item>
     </string-array>
 </resources>
