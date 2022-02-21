@@ -1,4 +1,4 @@
-package xyz.hellocraft.PortalHook.hook;
+package xyz.hellocraft.portalhook.hook;
 
 import android.content.Intent;
 import android.content.Context;
